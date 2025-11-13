@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Message to the Universe — Deidarakami</title>
+<style>
+  :root{
+    --bg1: #0b0018;
+    --bg2: #1a0033;
+    --violet: #b27cff;
+    --softwhite: #f5f3ff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{
+    height:100%;font-family:Georgia,serif;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(80,20,120,0.2), transparent),
+                linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+    color:var(--softwhite);overflow:hidden;
+  }
+  .scene{
+    height:100vh;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:4vh 6vw;position:relative;
+  }
+
+  /* STARS - NOW VISIBLE & BRIGHT */
+  .stars{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background-image:
+      radial-gradient(2px 2px at 100px 50px, #fff, transparent),
+      radial-gradient(2px 2px at 300px 150px, #fff, transparent),
+      radial-gradient(1px 1px at 500px 80px, #fff, transparent),
+      radial-gradient(2px 2px at 700px 300px, #fff, transparent),
+      radial-gradient(1px 1px at 900px 200px, #fff, transparent),
+      radial-gradient(2px 2px at 1100px 400px, #fff, transparent);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    animation: starsMove 60s linear infinite;
+    opacity: 0.9;
+    mix-blend-mode: screen;
+  }
+  @keyframes starsMove {
+    0% { background-position: 0 0; }
+    100% { background-position: 200px 200px; }
+  }
+
+  /* PLANETS - BIG, BRIGHT, VISIBLE */
+  .planet{
+    position:absolute;border-radius:50%;z-index:2;
+    box-shadow:0 0 40px rgba(100,150,255,0.6);
+    opacity:0.9;mix-blend-mode:screen;
+  }
+  .planet::before{
+    content:"";position:absolute;inset:0;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), transparent 60%);
+  }
+
+  .p1{width:90px;height:90px;background:#6ba3ff;top:10%;left:-100px;
+      animation:move1 70s linear infinite;}
+  .p2{width:130px;height:130px;background:#d4a574;top:45%;left:-150px;
+      animation:move2 90s linear infinite;}
+  .p3{width:110px;height:110px;background:#f4d03f;top:65%;left:-120px;
+      animation:move3 110s linear infinite;}
+  .p3::after{
+    content:"";position:absolute;width:180px;height:35px;
+    background:rgba(255,220,150,0.5);border-radius:50%;
+    top:50%;left:50%;transform:translate(-50%,-50%) rotate(25deg);
+    box-shadow:0 0 25px rgba(255,200,100,0.4);
+  }
+
+  @keyframes move1{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(150vw) rotate(360deg)}}
+  @keyframes move2{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(160vw) rotate(-300deg)}}
+  @keyframes move3{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(170vw) rotate(400deg)}}
+
+  /* ASTEROIDS - JAGGED ROCKS, VISIBLE */
+  .asteroid{
+    position:absolute;z-index:3;
+    background:linear-gradient(135deg,#bbb,#777,#555);
+    clip-path:polygon(50%0%,70%20%,100%30%,85%60%,70%100%,30%90%,15%60%,0%30%,30%20%);
+    box-shadow:inset -5px -5px 10px rgba(0,0,0,0.5), 0 0 15px rgba(120,70,160,0.4);
+    opacity:0.9;
+  }
+  .ast1{width:18px;height:14px;top:12%;left:-50px;animation:rock1 25s linear infinite;}
+  .ast2{width:24px;height:18px;top:55%;left:-80px;animation:rock2 35s linear infinite;}
+  .ast3{width:20px;height:15px;top:35%;left:-60px;animation:rock3 30s linear infinite;}
+  .ast4{width:28px;height:20px;top:75%;left:-40px;animation:rock4 42s linear infinite;}
+
+  @keyframes rock1{0%{transform:translateX(0) rotate(0)}100%{transform:translateX(150vw) rotate(720deg)}}
+  @keyframes rock2{0%{transform:translateX(0) rotate(-40deg)}100%{transform:translateX(160vw) rotate(900deg)}}
+  @keyframes rock3{0%{transform:translateX(0) rotate(30deg)}100%{transform:translateX(155vw) rotate(660deg)}}
+  @keyframes rock4{0%{transform:translateX(0) rotate(-20deg)}100%{transform:translateX(165vw) rotate(1080deg)}}
+
+  /* TEXT */
+  .content{z-index:10;max-width:900px;}
+  .title{
+    font-size:clamp(1.5rem,5vw,2.8rem);letter-spacing:0.08em;
+    background:linear-gradient(90deg,#fff,var(--violet));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    text-shadow:0 0 20px rgba(178,124,255,0.3);
+    animation:titleIn 1.2s ease forwards 0.3s;opacity:0;
+  }
+  @keyframes titleIn{to{opacity:1;transform:translateY(0)}from{transform:translateY(10px)}}
+
+  .divider{width:80px;height:3px;margin:15px auto;
+    background:linear-gradient(90deg,var(--violet),#fee8ff);border-radius:2px;
+    box-shadow:0 0 15px rgba(178,124,255,0.2);}
+
+  .poem{line-height:1.9;font-size:clamp(1rem,2.5vw,1.2rem);}
+  .line{display:block;margin:8px 0;
+    background:linear-gradient(90deg,#efe8ff,rgba(178,124,255,0.95));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;transform:translateY(10px);transition:opacity .8s,transform .8s;
+  }
+  .sig{margin-top:20px;font-size:1rem;opacity:0;animation:sigIn 1s ease forwards 3s;}
+  @keyframes sigIn{to{opacity:0.9}}
+
+  @media (max-width:600px){
+    .planet{width:60px;height:60px;}
+    .p3::after{width:100px;height:20px;}
+    .asteroid{width:16px;height:12px;}
+  }
+</style>
+</head>
+<body>
+  <div class="scene">
+    <!-- STARS -->
+    <div class="stars"></div>
+
+    <!-- PLANETS -->
+    <div class="planet p1"></div>
+    <div class="planet p2"></div>
+    <div class="planet p3"></div>
+
+    <!-- ASTEROIDS -->
+    <div class="asteroid ast1"></div>
+    <div class="asteroid ast2"></div>
+    <div class="asteroid ast3"></div>
+    <div class="asteroid ast4"></div>
+
+    <!-- TEXT -->
+    <div class="content">
+      <h1 class="title">Message to the Universe</h1>
+      <div class="divider"></div>
+      <div class="poem">
+        <span class="line">Born from a single spark of life, yet unaware of who lit it.</span>
+        <span class="line">Consciousness—our most beautiful mystery—makes us both curious and cruel.</span>
+        <span class="line">We seek peace but wage wars, we dream of unity yet act in isolation.</span>
+        <span class="line">Perhaps hypocrisy is not our flaw, but our reflection.</span>
+        <span class="line">Still, we reach beyond the sky, hoping someone, somewhere, might listen.</span>
+      </div>
+      <div class="sig">— Diedarakami</div>
+    </div>
+  </div>
+
+  <script>
+    // Show poem lines one by one
+    setTimeout(() => {
+      document.querySelectorAll('.line').forEach((line, i) => {
+        setTimeout(() => {
+          line.style.opacity = 1;
+          line.style.transform = 'translateY(0)';
+        }, i * 300);
+      });
+    }, 800);
+  </script>
+</body>
+</html>
